@@ -1,5 +1,6 @@
 package ru.job4j.dream.store;
 
+import com.sun.jdi.PathSearchingVirtualMachine;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
@@ -26,6 +27,7 @@ public class Store {
     private static final Store INST = new Store();
 
     private static AtomicInteger postId = new AtomicInteger(4);
+    private static AtomicInteger candidateId = new AtomicInteger(4);
 
     private Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
@@ -55,5 +57,19 @@ public class Store {
     public void save(Post post) {
         post.setId(postId.incrementAndGet());
         posts.put(post.getId(), post);
+    }
+
+    public void saveCandidate(Candidate candidate) {
+        candidate.setId(candidateId.incrementAndGet());
+        candidates.put(candidate.getId(), candidate);
+    }
+
+    public static void main(String[] args) {
+        Store store = new Store();
+       var store1 = Store.instOf();
+       store1.saveCandidate(new Candidate(0, "Petr Arsentev"));
+       for (Candidate candidate : store1.findAllCandidates()) {
+           System.out.println(candidate.toString());
+       }
     }
 }
