@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * 2. Scriplet. Динамическая таблица. [#276520]
  * Уровень : 3. Мидл Категория : 3.2.
  * Servlet JSPТопик : 3.2.2. JSP
- * path 2
+ * path 2.
  * @author SlartiBartFast-art
  * @since 21.09.21
  */
