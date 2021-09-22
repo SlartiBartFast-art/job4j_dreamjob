@@ -2,20 +2,30 @@ package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+
 import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 2. Scriplet. Динамическая таблица. [#276520]
  * Уровень : 3. Мидл Категория : 3.2.
  * Servlet JSPТопик : 3.2.2. JSP
- * path 2.
+ * path 2. Хранилище
+ * 1. Servlet. Web.xml [#6866]
+ * Уровень : 3. МидлКатегория : 3.2. Servlet JSPТопик : 3.2.3. Servlet
+ * Добавим в хранилище метод save(Post post). *
+ * Добавим ключ для генерации ID.
+ *
  * @author SlartiBartFast-art
+ * @version 02
  * @since 21.09.21
  */
 public class Store {
     private static final Store INST = new Store();
+
+    private static AtomicInteger postId = new AtomicInteger(4);
 
     private Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
@@ -40,5 +50,10 @@ public class Store {
 
     public Collection<Candidate> findAllCandidates() {
         return candidates.values();
+    }
+
+    public void save(Post post) {
+        post.setId(postId.incrementAndGet());
+        posts.put(post.getId(), post);
     }
 }
