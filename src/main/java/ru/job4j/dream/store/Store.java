@@ -29,9 +29,9 @@ public class Store {
     private static AtomicInteger postId = new AtomicInteger(4);
     private static AtomicInteger candidateId = new AtomicInteger(4);
 
-    private Map<Integer, Post> posts = new ConcurrentHashMap<>();
+    private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
-    private Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     private Store() {
         posts.put(1, new Post(1, "Junior Java Job"));
@@ -66,10 +66,10 @@ public class Store {
 
     public static void main(String[] args) {
         Store store = new Store();
-       var store1 = Store.instOf();
-       store1.saveCandidate(new Candidate(0, "Petr Arsentev"));
-       for (Candidate candidate : store1.findAllCandidates()) {
-           System.out.println(candidate.toString());
-       }
+        var store1 = Store.instOf();
+        store1.saveCandidate(new Candidate(0, "Petr Arsentev"));
+        for (Candidate candidate : store1.findAllCandidates()) {
+            System.out.println(candidate.toString());
+        }
     }
 }
