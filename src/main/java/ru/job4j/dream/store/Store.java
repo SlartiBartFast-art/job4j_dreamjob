@@ -54,9 +54,24 @@ public class Store {
         return candidates.values();
     }
 
+    /**
+     * Если id вакансии равен 0, то нужно сгенерировать новую id.
+     * @param post Object
+     */
     public void save(Post post) {
-        post.setId(postId.incrementAndGet());
+        if (post.getId() == 0) {
+            post.setId(postId.incrementAndGet());
+        }
         posts.put(post.getId(), post);
+    }
+
+    /**
+     * Метод для поиска вакансии по id.
+     * @param id Object Post
+     * @return Object Post or null if there was no mapping for key
+     */
+    public Post findById(int id) {
+        return posts.get(id);
     }
 
     public void saveCandidate(Candidate candidate) {
