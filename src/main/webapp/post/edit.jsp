@@ -50,7 +50,7 @@
                 <% } %>
             </div>
             <div class="card-body"> <!-- В форму добавим id. -->
-                <form action="<%=request.getContextPath()%>/post/save?id=<%=post.getId()%>" method="post">
+                <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label> <!-- В поле name загрузим имя. -->
                         <input type="text" class="form-control" name="name" value="<%=post.getName()%>">

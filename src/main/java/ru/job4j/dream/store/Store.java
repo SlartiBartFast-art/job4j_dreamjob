@@ -56,6 +56,7 @@ public class Store {
 
     /**
      * Если id вакансии равен 0, то нужно сгенерировать новую id.
+     *
      * @param post Object
      */
     public void save(Post post) {
@@ -67,6 +68,7 @@ public class Store {
 
     /**
      * Метод для поиска вакансии по id.
+     *
      * @param id Object Post
      * @return Object Post or null if there was no mapping for key
      */
@@ -74,15 +76,34 @@ public class Store {
         return posts.get(id);
     }
 
+    /**
+     * Если id candidate равен 0, то нужно сгенерировать новую id.
+     * @param candidate Object
+     */
     public void saveCandidate(Candidate candidate) {
-        candidate.setId(candidateId.incrementAndGet());
+        if (candidate.getId() == 0) {
+            candidate.setId(candidateId.incrementAndGet());
+        }
         candidates.put(candidate.getId(), candidate);
+    }
+
+    /**
+     * Метод для поиска вакансии по id.
+     *
+     * @param id Object Post
+     * @return Object Post or null if there was no mapping for key
+     */
+    public Candidate findByIdCandidate(int id) {
+        return candidates.get(id);
     }
 
     public static void main(String[] args) {
         Store store = new Store();
         var store1 = Store.instOf();
-        store1.saveCandidate(new Candidate(0, "Petr Arsentev"));
+        store1.saveCandidate(new Candidate(1, "Petr Arsentev"));
+        store1.saveCandidate(new Candidate(2, "Petr Arsentev"));
+        store1.saveCandidate(new Candidate(3, "Petr Arsentev"));
+        store1.saveCandidate(new Candidate(1, "Иван Иванов"));
         for (Candidate candidate : store1.findAllCandidates()) {
             System.out.println(candidate.toString());
         }

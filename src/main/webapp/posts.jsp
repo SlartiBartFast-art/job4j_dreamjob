@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: AdminTH
+  User:  SlartiBartFast-art
   Date: 21.09.2021
   Time: 21:37
   To change this template use File | Settings | File Templates.
@@ -8,6 +8,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
+<%@ page import="java.util.Collection" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -44,13 +45,14 @@
           </tr>
           </thead>
           <tbody>
-          <% for (Post post : Store.instOf().findAllPosts()) { %>
+          <% for (Post post : (Collection<Post>) request.getAttribute("posts")) { %>
           <tr>
             <td>
               <a href="<%=request.getContextPath()%>/post/edit.jsp?id=<%=post.getId()%>">
                 <i class="fa fa-edit mr-3"></i>
               </a>
-              <%= post.getName() %></td>
+              <%= post.getName() %>
+            </td>
           </tr>
           <% } %>
           </tbody>

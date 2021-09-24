@@ -12,13 +12,23 @@
     <servlet-name>CandidateServlet</servlet-name>
     <servlet-class>ru.job4j.dream.servlet.CandidateServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>IndexServlet</servlet-name>
+    <servlet-class>ru.job4j.dream.servlet.IndexServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>PostServlet</servlet-name>
-    <url-pattern>/post/save</url-pattern>
+    <url-pattern>/posts.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CandidateServlet</servlet-name>
-    <url-pattern>/post/saveCandidate</url-pattern>
+    <url-pattern>/candidates.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>IndexServlet</servlet-name>
+    <!-- Обратите внимание. Этот сервлет будет доступен по адресу /index.do.
+     Тут есть расширение, оно нужно будет в разделе безопастность. -->
+    <url-pattern>/index.do</url-pattern>
   </servlet-mapping>
 
 

@@ -18,12 +18,24 @@ import java.io.IOException;
  * Редактирование  posts.jsp.-- post/edit.jsp -- PostServlet
  * Внесение изминений в метод doPost(...) для возможности редактировать вакансию
  * Последний элемент редактирования - это загрузка id в сервлет.
- *
+ * 0. MVC в Servlet. [#6868]
+ * * Уровень : 3. Мидл Категория : 3.2. Servlet JSP Топик : 3.2.4. Шаблон MVC
+ * Мы уже сделали PostServlet. Доработаем его. Добавим метод doGet.
+ * В методу doGet мы загружаем в request список вакансий.
+ * req.setAttribute("posts", Store.instOf().findAllPosts());
+ *Обратите внимание в методе doPost тоже изменен адрес.
+ * resp.sendRedirect(req.getContextPath() + "/posts.do"); -- was posts.jsp
  * @author SlartiBartFast-art
- * @version 02
+ * @version 03
  * @since 22.09.21
  */
 public class PostServlet extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.setAttribute("posts", Store.instOf().findAllPosts());
+        req.getRequestDispatcher("posts.jsp").forward(req, resp);
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
@@ -33,6 +45,6 @@ public class PostServlet extends HttpServlet {
                         req.getParameter("name")
                 )
         );
-        resp.sendRedirect(req.getContextPath() + "/posts.jsp");
+        resp.sendRedirect(req.getContextPath() + "/posts.do");
     }
 }

@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: AdminTH
+  User: SlartiBartFast-art
   Date: 22.09.2021
   Time: 14:32
   To change this template use File | Settings | File Templates.
@@ -8,6 +8,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
+<%@ page import="java.util.Collection" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -27,7 +28,8 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-
+    <!-- Добавьте библиотеку иконок.добавим возможность редактировать вакансию -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Работа мечты</title>
 </head>
 <body>
@@ -46,9 +48,14 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Candidate can : Store.instOf().findAllCandidates()) { %>
+                    <% for (Candidate candidate : (Collection<Candidate>) request.getAttribute("posts")) { %>
                     <tr>
-                        <td><%= can.getName() %>
+                        <td> <!--Добавьте иконку в таблицу и ссылку на страницу edit.
+                         Если перейти по ссылке, то загрузиться страница edit.jsp.-->
+                            <a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=candidate.getId()%>">
+                                <i class="fa fa-edit mr-3"></i>
+                            </a>
+                            <%= candidate.getName() %>
                         </td>
                     </tr>
                     <% } %>
