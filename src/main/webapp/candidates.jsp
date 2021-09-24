@@ -4,11 +4,24 @@
   Date: 22.09.2021
   Time: 14:32
   To change this template use File | Settings | File Templates.
+  1. JSTL замена Scriplets [#2516]
+  % for (Candidate candidate : (Collection<Candidate>) request.getAttribute("posts")) { %>
+                    <tr>
+                        <td> <!--Добавьте иконку в таблицу и ссылку на страницу edit.
+                         Если перейти по ссылке, то загрузиться страница edit.jsp.-->
+                            <a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=candidate.getId()%>">
+                                <i class="fa fa-edit mr-3"></i>
+                            </a>
+                            <%= candidate.getName() %>
+                        </td>
+                    </tr>
+                    <% } %>
 --%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.dream.store.Store" %>
 <%@ page import="ru.job4j.dream.model.Candidate" %>
 <%@ page import="java.util.Collection" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -48,17 +61,19 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <% for (Candidate candidate : (Collection<Candidate>) request.getAttribute("posts")) { %>
-                    <tr>
-                        <td> <!--Добавьте иконку в таблицу и ссылку на страницу edit.
+                    <tbody> <!-- c:forEach items="posts" var="post"
+          Переменная posts была загружена в PostServlet.-->
+                    <c:forEach items="${posts}" var="candidate">
+                        <tr>
+                            <td><!--Добавьте иконку в таблицу и ссылку на страницу edit.
                          Если перейти по ссылке, то загрузиться страница edit.jsp.-->
-                            <a href="<%=request.getContextPath()%>/candidate/edit.jsp?id=<%=candidate.getId()%>">
-                                <i class="fa fa-edit mr-3"></i>
-                            </a>
-                            <%= candidate.getName() %>
-                        </td>
-                    </tr>
-                    <% } %>
+                                <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}"/>'>
+                                    <i class="fa fa-edit mr-3"></i>
+                                </a><!-- c:out value="post.name"- Вывод значения post.  -->
+                                <c:out value="${candidate.name}"/>
+                            </td>
+                        </tr>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>
