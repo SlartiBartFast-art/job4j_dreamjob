@@ -3,7 +3,7 @@ package ru.job4j.dream.model;
 import java.util.Objects;
 
 /**
- * 4. candicates.jsp - список кандидатов. [#276522]
+ * 4. candidates.jsp - список кандидатов. [#276522]
  * Уровень : 3. Мидл Категория : 3.2. Servlet JSPТопик : 3.2.2. JSP
  * модель описывающую кандидата.
  *

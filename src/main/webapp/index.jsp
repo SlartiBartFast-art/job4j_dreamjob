@@ -18,13 +18,19 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
-    <title>Работа мечты</title>
+    <title>Работа мечты</title> <!-- -->
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <ul class="nav">
+        <ul class="nav"> <!-- Здесь мы используем шаблон bootstap. -->
             <li class="nav-item">
+<!-- Для правильной загрузки ссылки используется элемент скриплета.
+<a class="nav-link" href="< % = request.getContextPath() % >/posts.jsp">Вакансии</a>
+Если его не указать, то адрес будет ссылаться на корень сервера http://localhost:8080/posts.jsp. Это не верно.
+Нам нужно http://localhost:8080/dreamjob/posts.jsp-->
+<!--элементов HTML <a href>.
+Этот элемент используется для перехода с одной страницы и другую. Браузер отправляет запрос серверу отдать новую страницу. -->
                 <a class="nav-link" href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
             </li>
             <li class="nav-item">

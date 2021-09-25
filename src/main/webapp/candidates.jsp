@@ -1,4 +1,6 @@
 <%--
+ создадим отдельную страницу для кандидатов.
+ Запустим приложение и откроем страницу http://localhost:8080/dreamjob/candidates.jsp
   Created by IntelliJ IDEA.
   User: SlartiBartFast-art
   Date: 22.09.2021
@@ -67,6 +69,8 @@
                         <tr>
                             <td><!--Добавьте иконку в таблицу и ссылку на страницу edit.
                          Если перейти по ссылке, то загрузиться страница edit.jsp.-->
+                                <!-- элементов HTML <a href>.Этот элемент используется для перехода
+                                с одной страницы и другую. Браузер отправляет запрос серверу отдать новую страницу. -->
                                 <a href='<c:url value="/candidate/edit.jsp?id=${candidate.id}"/>'>
                                     <i class="fa fa-edit mr-3"></i>
                                 </a><!-- c:out value="post.name"- Вывод значения post.  -->

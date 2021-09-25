@@ -16,14 +16,21 @@ import java.io.IOException;
  * resp.setContentType("application/octet-stream");
  * resp.setHeader("Content-Disposition", "attachment; filename=\"" + users.getName() + "\"");
  * Перезапустите сервлет и откройте ссылку /download
- * Теперь мы видим, что браузер скачивает файл.
+ * Теперь мы видим, что браузер скачивает файл. *
  */
 public class DownloadServlet extends HttpServlet {
+    /*
+1. Мы выставляем заголовок ответа в протоколе.
+Таким образом мы сообщаем браузеру, что будем отправлять файл.
+String name = req.getParameter("name");
+2. Открываем поток и записываем его в выходной поток servlet.
+resp.getOutputStream().write(in.readAllBytes());
+     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getParameter("name");
         File downloadFile = null;
-        for (File file : new File("c:\\images\\").listFiles()) {
+        for (File file : new File("C:\\images").listFiles()) {
             if (name.equals(file.getName())) {
                 downloadFile = file;
                 break;

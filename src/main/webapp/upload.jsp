@@ -7,7 +7,8 @@
 --%>
 
 <%@ page language="java" pageEncoding="UTF-8" session="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
         </thead>
         <tbody>
         <c:forEach items="${images}" var="image" varStatus="status">
-            <tr valign="top">
+            <tr valign="top"> <!-- ссылки на скачивание и отображения одинаковы.-->
                 <td><a href="<c:url value='/download?name=${image}'/>">Download</a></td>
                 <td>
                     <img src="<c:url value='/download?name=${image}'/>" width="100px" height="100px"/>

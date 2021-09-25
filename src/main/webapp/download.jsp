@@ -7,7 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page language="java" pageEncoding="UTF-8" session="true"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,10 +40,11 @@
         </c:forEach>
         </tbody>
     </table>
-    <h2>Download image</h2>
+    <h2>Download image</h2> <!-- В браузере она отобразится, как кнопка с выбором файла.
+Давайте сделаем форму с вводом файла. -->
     <form action="<c:url value='/upload'/>" method="post" enctype="multipart/form-data">
         <div class="checkbox">
-            <input type="file" name="file">
+            <input type="file" name="file"> <!-- В html есть форма загрузки файла. <input type="file" name="file"> -->
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>

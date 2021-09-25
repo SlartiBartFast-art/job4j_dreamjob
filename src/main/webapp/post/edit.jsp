@@ -53,8 +53,10 @@
                 <form action="<%=request.getContextPath()%>/posts.do?id=<%=post.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label> <!-- В поле name загрузим имя. -->
+<!-- элементами ввода в HTML. Элемент ввода описывается через тег input.-->
                         <input type="text" class="form-control" name="name" value="<%=post.getName()%>">
                     </div>
+<!--Кнопка в HTML описывается тем же тегом button. <button type="submit" class="btn btn-primary">Сохранить</button> -->
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>
