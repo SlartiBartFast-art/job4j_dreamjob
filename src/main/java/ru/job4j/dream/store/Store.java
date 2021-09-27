@@ -26,4 +26,6 @@ public interface Store {
 
     Candidate findByIdCandidate(int id);
 
+    void remove(int id);
+
 }

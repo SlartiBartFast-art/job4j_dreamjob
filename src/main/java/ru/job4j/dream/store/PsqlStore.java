@@ -138,6 +138,19 @@ public class PsqlStore implements Store {
         }
     }
 
+    @Override
+    public void remove(int id) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "DELETE FROM candidate name WHERE id = (?)")
+        ) {
+            ps.setInt(2, id);
+            ps.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Создание вакансии. Здесь выполняется обычный sql запрос.
      *

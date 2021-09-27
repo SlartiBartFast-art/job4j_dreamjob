@@ -101,8 +101,8 @@ public class MemStore {
     }
 
     public static void main(String[] args) {
-        MemStore store = new MemStore();
-        var store1 = MemStore.instOf();
+
+        var store1 = PsqlStore.instOf();
         store1.saveCandidate(new Candidate(1, "Petr Arsentev"));
         store1.saveCandidate(new Candidate(2, "Petr Arsentev"));
         store1.saveCandidate(new Candidate(3, "Petr Arsentev"));

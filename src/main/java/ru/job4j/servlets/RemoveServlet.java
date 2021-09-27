@@ -1,6 +1,6 @@
 package ru.job4j.servlets;
 
-import ru.job4j.dream.store.MemStore;
+import ru.job4j.dream.store.PsqlStore;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 public class RemoveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("candidates", MemStore.instOf().findAllCandidates());
+        request.setAttribute("candidates", PsqlStore.instOf().findAllCandidates());
         request.getRequestDispatcher("candidates.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        MemStore.instOf().remove(Integer.parseInt(request.getParameter("id")));
+        PsqlStore.instOf().remove(Integer.parseInt(request.getParameter("id")));
         response.sendRedirect(request.getContextPath() + "/candidates.do");
         File file = new File("c:\\images\\" + request.getParameter("id") + ".jpg");
         file.delete();
