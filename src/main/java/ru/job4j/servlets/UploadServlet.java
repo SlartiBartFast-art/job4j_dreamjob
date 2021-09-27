@@ -27,14 +27,14 @@ import java.util.List;
  * Метод doPost загружает выбранный файл на сервер в папку c:\\images\\
  */
 public class UploadServlet extends HttpServlet {
-    @Override
+   @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.setAttribute("candidates", PsqlStore.instOf().findAllCandidates());
         req.getRequestDispatcher("candidates.jsp").forward(req, resp);
     }
 
-    /* @Override
+ /*   @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
         for (File name : new File("C:\\images").listFiles()) {
@@ -43,7 +43,7 @@ public class UploadServlet extends HttpServlet {
         req.setAttribute("images", images);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
         dispatcher.forward(req, resp);
- */
+    }*/
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
