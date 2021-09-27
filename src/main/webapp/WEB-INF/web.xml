@@ -29,6 +29,10 @@
         <servlet-name>UploadServlet</servlet-name>
         <servlet-class>ru.job4j.servlets.UploadServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RemoveServlet</servlet-name>
+        <servlet-class>ru.job4j.servlets.RemoveServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
         <url-pattern>/posts.do</url-pattern>
@@ -49,7 +53,11 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadServlet</servlet-name>
-        <url-pattern>/upload</url-pattern>
+        <url-pattern>/photo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveServlet</servlet-name>
+        <url-pattern>/remove</url-pattern>
     </servlet-mapping>
 
 

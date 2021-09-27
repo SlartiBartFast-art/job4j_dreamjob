@@ -25,8 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class MemStore {
     private static final MemStore INST = new MemStore();
 
-    private static AtomicInteger postId = new AtomicInteger(4);
-    private static AtomicInteger candidateId = new AtomicInteger(4);
+    private static final AtomicInteger POST_ID = new AtomicInteger(4);
+    private static final AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
 
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
@@ -60,9 +60,24 @@ public class MemStore {
      */
     public void save(Post post) {
         if (post.getId() == 0) {
-            post.setId(postId.incrementAndGet());
+            post.setId(POST_ID.incrementAndGet());
         }
         posts.put(post.getId(), post);
+    }
+
+    /**
+     * Если id candidate равен 0, то нужно сгенерировать новую id.
+     * @param candidate Object
+     */
+    public void saveCandidate(Candidate candidate) {
+        if (candidate.getId() == 0) {
+            candidate.setId(CANDIDATE_ID.incrementAndGet());
+        }
+        candidates.put(candidate.getId(), candidate);
+    }
+
+    public void remove(int id) {
+        candidates.remove(id);
     }
 
     /**
@@ -73,17 +88,6 @@ public class MemStore {
      */
     public Post findById(int id) {
         return posts.get(id);
-    }
-
-    /**
-     * Если id candidate равен 0, то нужно сгенерировать новую id.
-     * @param candidate Object
-     */
-    public void saveCandidate(Candidate candidate) {
-        if (candidate.getId() == 0) {
-            candidate.setId(candidateId.incrementAndGet());
-        }
-        candidates.put(candidate.getId(), candidate);
     }
 
     /**

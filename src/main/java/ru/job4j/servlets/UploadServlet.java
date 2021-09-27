@@ -4,6 +4,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import ru.job4j.dream.store.MemStore;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -20,12 +21,19 @@ import java.util.List;
 /**
  * 1. Загрузка и скачивание файла. [#154183]
  * Уровень : 3. Мидл Категория : 3.2. Servlet JSPТопик : 3.2.5.1. Form
- *  Это servlet будет обрабатывать загрузку файла на сервер.
- *  Метод doGet отображает список доступных файлов.
+ * Это servlet будет обрабатывать загрузку файла на сервер.
+ * Метод doGet отображает список доступных файлов.
  * Метод doPost загружает выбранный файл на сервер в папку c:\\images\\
  */
 public class UploadServlet extends HttpServlet {
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        req.setAttribute("candidates", MemStore.instOf().findAllCandidates());
+        req.getRequestDispatcher("candidates.jsp").forward(req, resp);
+    }
+
+    /* @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<String> images = new ArrayList<>();
         for (File name : new File("C:\\images").listFiles()) {
@@ -34,7 +42,7 @@ public class UploadServlet extends HttpServlet {
         req.setAttribute("images", images);
         RequestDispatcher dispatcher = req.getRequestDispatcher("/upload.jsp");
         dispatcher.forward(req, resp);
-    }
+ */
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
