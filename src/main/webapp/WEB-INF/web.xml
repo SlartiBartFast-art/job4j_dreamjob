@@ -41,6 +41,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>ru.job4j.dream.servlet.LogoutServlet</servlet-class>
     </servlet>
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>ru.job4j.dream.filter.AuthFilter</filter-class>
+    </filter>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
         <url-pattern>/posts.do</url-pattern>
@@ -75,5 +79,14 @@
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout.do</url-pattern>
     </servlet-mapping>
-
+    <filter-mapping>
+<!--В url-pattern можно указать полный путь или маску поиска.
+* - все запросы.
+*.html - все запросы с расширением html. Например, index.html, users.html
+/static/* - запросы содержащие в URL блок /static/. Используется для кеширования css, js, html.
+Здесь используется маска *.do.Все запросы с расширением *.do будут обрабатываться нашим фильтром
+ -->
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
 </web-app>
