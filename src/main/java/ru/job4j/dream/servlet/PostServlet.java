@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * 1. Servlet. Web.xml [#6866]02
@@ -23,16 +24,20 @@ import java.io.IOException;
  * Мы уже сделали PostServlet. Доработаем его. Добавим метод doGet.
  * В методу doGet мы загружаем в request список вакансий.
  * req.setAttribute("posts", Store.instOf().findAllPosts());
- *Обратите внимание в методе doPost тоже изменен адрес.
+ * Обратите внимание в методе doPost тоже изменен адрес.
  * resp.sendRedirect(req.getContextPath() + "/posts.do"); -- was posts.jsp
+ * 1. HttpSession [#6869]
+ * Уровень : 3. МидлКатегория : 3.2. Servlet JSP Топик : 3.2.6. Filter, Security
+ *Напомню, что данные мы загружаем через Servlet, поэтому получим объект user из HttpSession.
  * @author SlartiBartFast-art
- * @version 03
+ * @version 04
  * @since 22.09.21
  */
 public class PostServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("posts", PsqlStore.instOf().findAllPosts());
+        req.setAttribute("posts", new ArrayList<>(PsqlStore.instOf().findAllPosts()));
+        req.setAttribute("user", req.getSession().getAttribute("user"));
         req.getRequestDispatcher("posts.jsp").forward(req, resp);
     }
 

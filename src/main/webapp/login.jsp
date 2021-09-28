@@ -7,7 +7,7 @@
   Сделаем страницу для входа в приложение под конкретным пользователем.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -25,11 +25,64 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
           integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 
+  <  <script>
+        function validate() {
+            var x = Boolean(true);
+            if ($('#email').val() === "") {
+                alert($('#email').attr('title'));
+                x = false;
+            }
+            if ($('#password').val() === "") {
+                alert($('#password').attr('title'));
+                x = false;
+            }
+            return x;
+        }
+    </script>
   <title>Работа мечты</title>
 </head>
 <body>
 <div class="container pt-3">
-
+  <div class="row">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link"
+           href="<%=request.getContextPath()%>/index.do">Главная</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="<%=request.getContextPath()%>/posts.do">Вакансии</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="<%=request.getContextPath()%>/post/edit.jsp">Добавить вакансию</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="<%=request.getContextPath()%>/candidates.do">Кандидаты</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"
+           href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
+      </li>
+      <c:if test="${user == null}">
+        <li class="nav-item">
+          <a class="nav-link"
+             href="<%=request.getContextPath()%>/login/login.jsp">Войти</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link"
+             href="<%=request.getContextPath()%>/register/reg.jsp">Регистрация</a>
+        </li>
+      </c:if>
+      <c:if test="${user != null}">
+        <li class="nav-item">
+          <a class="nav-link" href="<%=request.getContextPath()%>/logout.do">
+            <c:out value="${user.name}"/> | Выйти</a>
+        </li>
+      </c:if>
+    </ul>
+  </div>
   <div class="row">
     <div class="card" style="width: 100%">
       <div class="card-header">
@@ -38,14 +91,17 @@
       <div class="card-body">
         <form action="<%=request.getContextPath()%>/auth.do" method="post">
           <div class="form-group">
-            <label>Почта</label>
-            <input type="text" class="form-control" name="email">
+            <label for="email">Почта</label>
+            <input type="text" class="form-control" id="email"
+                   title="Enter email" name="email">
           </div>
           <div class="form-group">
-            <label>Пароль</label>
-            <input type="text" class="form-control" name="password">
+            <label for="password">Пароль</label>
+            <input type="text" class="form-control" id="password"
+                   title="Enter password" name="password">
           </div>
-          <button type="submit" class="btn btn-primary">Войти</button>
+          <button type="submit" class="btn btn-primary"
+                  onclick="return validate();">Войти</button>
           <c:if test="${not empty error}">
             <div style="color:red; font-weight: bold; margin: 30px 0;">
               <c:out value="${error}"/>

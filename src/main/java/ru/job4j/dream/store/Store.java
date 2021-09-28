@@ -4,6 +4,7 @@ import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * 1. PsqlStore. [#281226]
