@@ -31,9 +31,11 @@ import java.io.IOException;
  * Вызывает вызов следующего фильтра в цепочке или, если вызывающий фильтр является последним
  * фильтром в цепочке, вызывает вызов ресурса в конце цепочки.
  * Пропишем его в web.xml
- *
+ * 4. Регистрация пользователя. [#283110]
+ * Уровень : 3. Мидл Категория : 3.2. Servlet JSP Топик : 3.2.6. Filter, Security
+ * В AuthFilter добавьте игнорировние сервлета reg.do.
  * @author SlartiBartFast-art
- * @version 01
+ * @version 02
  * @since 28.09.21
  */
 public class AuthFilter implements Filter {
@@ -46,7 +48,7 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) sreq;
         HttpServletResponse resp = (HttpServletResponse) sresp;
         String uri = req.getRequestURI();
-        if (uri.endsWith("auth.do")) {
+        if (uri.endsWith("auth.do") || uri.endsWith("reg.do")) {
             chain.doFilter(sreq, sresp);
             return;
         }

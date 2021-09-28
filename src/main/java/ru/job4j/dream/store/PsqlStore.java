@@ -84,7 +84,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.fatal("Unable to SQL query.", e);
         }
         return posts;
     }
@@ -106,7 +106,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.fatal("Unable to SQL query.", e);
         }
         return candidates;
     }
@@ -150,28 +150,107 @@ public class PsqlStore implements Store {
             ps.setInt(2, id);
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.fatal("Unable to SQL query.", e);
         }
     }
 
     @Override
     public Map<String, User> findAllUser() {
-        return null;
+        Map<String, User> userMap = new HashMap<>();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users")
+        ) {
+            try (ResultSet it = ps.executeQuery()) {
+                while (it.next()) {
+                    userMap.put(it.getString("email"),
+                            new User(
+                                    it.getInt("id"), it.getString("name"),
+                                    it.getString("email"), it.getString("password"))
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.fatal("Unable to SQL query.", e);
+        }
+        return userMap;
     }
 
     @Override
     public void save(User user) {
+        if (user.getId() == 0) {
+            createUser(user);
+        } else {
+            updateUser(user);
+        }
+    }
 
+    private User createUser(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "INSERT INTO users(name, email, password) VALUES (?, ?, ?)",
+                     PreparedStatement.RETURN_GENERATED_KEYS)
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
+            ps.execute();
+            try (ResultSet id = ps.getGeneratedKeys()) {
+                if (id.next()) {
+                    user.setId(id.getInt(1));
+                }
+            }
+        } catch (SQLException e) {
+            LOGGER.fatal("Unable to SQL query.", e);
+        }
+        return user;
+    }
+
+    private void updateUser(User user) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "UPDATE users SET name = (?), email = (?), password = (?) WHERE id = (?)")
+        ) {
+            ps.setString(1, user.getName());
+            ps.setString(2, user.getName());
+            ps.setString(3, user.getName());
+            ps.setInt(4, user.getId());
+            ps.execute();
+        } catch (SQLException e) {
+            LOGGER.fatal("Unable to SQL query.", e);
+        }
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        return null;
+    public User findByEmail(String email) {
+        User user = null;
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "SELECT * FROM users WHERE email = (?)")
+        ) {
+            ps.setString(1, email);
+            try (ResultSet it = ps.executeQuery()) {
+                user = new User(
+                        it.getInt("id"), it.getString("name"),
+                        it.getString("email"), it.getString("password")
+                );
+            }
+        } catch (SQLException e) {
+            LOGGER.fatal("Unable to SQL query.", e);
+        }
+        return user;
     }
 
     @Override
     public void removeUser(String email) {
-
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(
+                     "DELETE FROM users WHERE email = (?)")
+        ) {
+            ps.setString(1, email);
+            ps.execute();
+        } catch (SQLException e) {
+            LOGGER.fatal("Unable to SQL query.", e);
+        }
     }
 
     /**
@@ -193,7 +272,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.fatal("Unable to SQL query.", e);
         }
         return post;
     }
@@ -217,7 +296,7 @@ public class PsqlStore implements Store {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.fatal("Unable to SQL query.", e);
         }
         return candidate;
     }
@@ -236,7 +315,7 @@ public class PsqlStore implements Store {
             ps.setInt(2, post.getId());
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.fatal("Unable to SQL query.", e);
         }
     }
 
@@ -254,7 +333,7 @@ public class PsqlStore implements Store {
             ps.setInt(2, candidate.getId());
             ps.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.fatal("Unable to SQL query.", e);
         }
     }
 
@@ -290,6 +369,7 @@ public class PsqlStore implements Store {
      * Replace  Candidate candidate = new Candidate(0, ""); by
      * Optional<Candidate> candidate = Optional.empty();
      * Replace e.printStackTrace(); by LOGGER
+     *
      * @param id value Candidate object
      * @return Candidate Object
      */

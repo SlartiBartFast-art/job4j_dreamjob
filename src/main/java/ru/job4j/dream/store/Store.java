@@ -38,7 +38,7 @@ public interface Store {
 
     void save(User user);
 
-    User findUserByEmail(String email);
+    User findByEmail(String email);
 
     void removeUser(String email);
 }
