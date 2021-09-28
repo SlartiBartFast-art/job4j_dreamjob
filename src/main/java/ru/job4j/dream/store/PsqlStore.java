@@ -1,6 +1,8 @@
 package ru.job4j.dream.store;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
 
@@ -9,10 +11,8 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.sql.SQLException;
+import java.util.*;
 
 /**
  * 1. PsqlStore. [#281226]
@@ -31,6 +31,8 @@ import java.util.Properties;
  * @since 24.09.21
  */
 public class PsqlStore implements Store {
+    final static Logger LOGGER =
+            LogManager.getLogger(PsqlStore.class.getName());
     private final BasicDataSource pool = new BasicDataSource();
 
     private PsqlStore() {
@@ -80,7 +82,7 @@ public class PsqlStore implements Store {
                     posts.add(new Post(it.getInt("id"), it.getString("name")));
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return posts;
@@ -102,7 +104,7 @@ public class PsqlStore implements Store {
                     candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return candidates;
@@ -146,7 +148,7 @@ public class PsqlStore implements Store {
         ) {
             ps.setInt(2, id);
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -169,7 +171,7 @@ public class PsqlStore implements Store {
                     post.setId(id.getInt(1));
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return post;
@@ -193,7 +195,7 @@ public class PsqlStore implements Store {
                     candidate.setId(id.getInt(1));
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return candidate;
@@ -212,7 +214,7 @@ public class PsqlStore implements Store {
             ps.setString(1, post.getName());
             ps.setInt(2, post.getId());
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -230,58 +232,60 @@ public class PsqlStore implements Store {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getId());
             ps.execute();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Implements find Object Post in table (PostgresSQL) from value id
+     * //Replace Post post = new Post(0, "") by Optional.of(new Post(0, ""));
+     * or  Optional<Post> post = Optional.empty();
+     * //Replace e.printStackTrace(); by LOGGER.fatal("Unable to SQL query.", e);
      *
      * @param id value Post object
      * @return Post Object
      */
     @Override
     public Post findById(int id) {
-        Post post = new Post(0, "");
+        Optional<Post> post = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "SELECT name FROM post WHERE id = (?)")
         ) {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
-                while (it.next()) {
-                    post = new Post(id, it.getString("name"));
-                }
+                post = Optional.of(new Post(id, it.getString("name")));
+
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.fatal("Unable to SQL query.", e);
         }
-        return post;
+        return post.orElse(null);
     }
 
     /**
      * Implements find Object Post in table (PostgresSQL) from value id
-     *
+     * //Replace  Candidate candidate = new Candidate(0, ""); by
+     * //Optional<Candidate> candidate = Optional.empty();
+     * //Replace e.printStackTrace(); by LOGGER
      * @param id value Candidate object
      * @return Candidate Object
      */
     @Override
     public Candidate findByIdCandidate(int id) {
-        Candidate candidate = new Candidate(0, "");
+        Optional<Candidate> candidate = Optional.empty();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(
                      "SELECT name FROM candidate WHERE id = (?)")
         ) {
             ps.setInt(1, id);
             try (ResultSet it = ps.executeQuery()) {
-                while (it.next()) {
-                    candidate = new Candidate(id, it.getString("name"));
-                }
+                candidate = Optional.of(new Candidate(id, it.getString("name")));
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            LOGGER.fatal("Unable to SQL query.", e);
         }
-        return candidate;
+        return candidate.orElse(null);
     }
 }
