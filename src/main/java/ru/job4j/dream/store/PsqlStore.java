@@ -22,12 +22,12 @@ import java.util.*;
  * class BasicDataSource простой org.apache.commons.dbcp.BasicDataSource объект,
  * то есть базовую реализацию javax.sql.DataSource, которая настраивается через
  * свойства JavaBeans. Короче говоря, чтобы создать простой BasicDataSource объект, вам необходимо:
- * Создайте BasicDataSourceобъект и настройте базу данных. Используйте setDriverClassName
+ * Создайте BasicDataSource объект и настройте базу данных. Используйте setDriverClassName
  * (String driverClassName)метод для установки имени класса драйвера jdbc. Используйте setUrl
  * (String url)метод для установки URL-адреса.
  *
  * @author SlartiBartFast-art
- * @version 01
+ * @version 02
  * @since 24.09.21
  */
 public class PsqlStore implements Store {
@@ -239,9 +239,9 @@ public class PsqlStore implements Store {
 
     /**
      * Implements find Object Post in table (PostgresSQL) from value id
-     * //Replace Post post = new Post(0, "") by Optional.of(new Post(0, ""));
+     * Replace Post post = new Post(0, "") by Optional.of(new Post(0, ""));
      * or  Optional<Post> post = Optional.empty();
-     * //Replace e.printStackTrace(); by LOGGER.fatal("Unable to SQL query.", e);
+     * Replace e.printStackTrace(); by LOGGER.fatal("Unable to SQL query.", e);
      *
      * @param id value Post object
      * @return Post Object
@@ -266,9 +266,9 @@ public class PsqlStore implements Store {
 
     /**
      * Implements find Object Post in table (PostgresSQL) from value id
-     * //Replace  Candidate candidate = new Candidate(0, ""); by
-     * //Optional<Candidate> candidate = Optional.empty();
-     * //Replace e.printStackTrace(); by LOGGER
+     * Replace  Candidate candidate = new Candidate(0, ""); by
+     * Optional<Candidate> candidate = Optional.empty();
+     * Replace e.printStackTrace(); by LOGGER
      * @param id value Candidate object
      * @return Candidate Object
      */
