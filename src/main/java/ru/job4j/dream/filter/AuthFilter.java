@@ -21,7 +21,7 @@ import java.io.IOException;
  * return;
  * }
  * public interface FilterChain {
- *     void doFilter(javax.servlet.ServletRequest servletRequest, javax.servlet.ServletResponse servletResponse){}}
+ * void doFilter(javax.servlet.ServletRequest servletRequest, javax.servlet.ServletResponse servletResponse){}}
  * Сервлетный фильтр
  * Сервлетный фильтр, в соответствии со спецификацией, это Java-код, пригодный для повторного
  * использования и позволяющий преобразовать содержание HTTP-запросов, HTTP-ответов и информацию,
@@ -34,15 +34,12 @@ import java.io.IOException;
  * 4. Регистрация пользователя. [#283110]
  * Уровень : 3. Мидл Категория : 3.2. Servlet JSP Топик : 3.2.6. Filter, Security
  * В AuthFilter добавьте игнорировние сервлета reg.do.
+ *
  * @author SlartiBartFast-art
  * @version 02
  * @since 28.09.21
  */
 public class AuthFilter implements Filter {
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-    }
-
     @Override
     public void doFilter(ServletRequest sreq, ServletResponse sresp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) sreq;
@@ -57,9 +54,5 @@ public class AuthFilter implements Filter {
             return;
         }
         chain.doFilter(sreq, sresp);
-    }
-
-    @Override
-    public void destroy() {
     }
 }
