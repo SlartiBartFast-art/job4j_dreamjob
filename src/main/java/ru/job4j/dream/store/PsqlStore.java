@@ -155,27 +155,6 @@ public class PsqlStore implements Store {
     }
 
     @Override
-    public Map<String, User> findAllUser() {
-        Map<String, User> userMap = new HashMap<>();
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement("SELECT * FROM users")
-        ) {
-            try (ResultSet it = ps.executeQuery()) {
-                while (it.next()) {
-                    userMap.put(it.getString("email"),
-                            new User(
-                                    it.getInt("id"), it.getString("name"),
-                                    it.getString("email"), it.getString("password"))
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            LOGGER.fatal("Unable to SQL query.", e);
-        }
-        return userMap;
-    }
-
-    @Override
     public void save(User user) {
         if (user.getId() == 0) {
             createUser(user);
@@ -238,19 +217,6 @@ public class PsqlStore implements Store {
             LOGGER.fatal("Unable to SQL query.", e);
         }
         return user;
-    }
-
-    @Override
-    public void removeUser(String email) {
-        try (Connection cn = pool.getConnection();
-             PreparedStatement ps = cn.prepareStatement(
-                     "DELETE FROM users WHERE email = (?)")
-        ) {
-            ps.setString(1, email);
-            ps.execute();
-        } catch (SQLException e) {
-            LOGGER.fatal("Unable to SQL query.", e);
-        }
     }
 
     /**

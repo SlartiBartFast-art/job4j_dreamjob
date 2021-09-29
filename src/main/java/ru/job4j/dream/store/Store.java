@@ -34,11 +34,7 @@ public interface Store {
 
     void remove(int id);
 
-    Map<String, User> findAllUser();
-
     void save(User user);
 
     User findByEmail(String email);
-
-    void removeUser(String email);
 }
