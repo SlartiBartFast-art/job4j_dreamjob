@@ -2,6 +2,7 @@ package ru.job4j.dream.store;
 
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.Post;
+import ru.job4j.dream.model.User;
 
 import java.util.Collection;
 import java.util.Map;
@@ -9,9 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * MemStore, который работает с памятью.
  * 2. Scriplet. Динамическая таблица. [#276520]
- * Уровень : 3. Мидл Категория : 3.2.
- * Servlet JSPТопик : 3.2.2. JSP
+ * Уровень : 3. Мидл Категория : 3.2. Servlet JSPТопик : 3.2.2. JSP
  * path 2. Хранилище
  * 1. Servlet. Web.xml [#6866]
  * Уровень : 3. МидлКатегория : 3.2. Servlet JSPТопик : 3.2.3. Servlet
@@ -22,15 +23,14 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @version 03
  * @since 21.09.21
  */
-public class MemStore {
+public class MemStore implements Store {
     private static final MemStore INST = new MemStore();
-
     private static final AtomicInteger POST_ID = new AtomicInteger(4);
     private static final AtomicInteger CANDIDATE_ID = new AtomicInteger(4);
-
+    private static final AtomicInteger USER_ID = new AtomicInteger();
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
-
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
+    private final Map<Integer, User> users = new ConcurrentHashMap<>();
 
     private MemStore() {
         posts.put(1, new Post(1, "Junior Java Job"));
@@ -78,6 +78,26 @@ public class MemStore {
 
     public void remove(int id) {
         candidates.remove(id);
+    }
+
+    @Override
+    public void save(User user) {
+        if (user.getId() == 0) {
+            user.setId(USER_ID.incrementAndGet());
+        }
+        users.put(user.getId(), user);
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        User user = null;
+        for (User us : users.values()) {
+            if (us.getEmail().equals(email)) {
+                user = us;
+                break;
+            }
+        }
+        return user;
     }
 
     /**
