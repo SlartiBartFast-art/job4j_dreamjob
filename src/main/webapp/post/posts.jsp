@@ -83,6 +83,7 @@
             </c:if>
         </ul>
     </div>
+
     <ul class="nav">
         <div class="card" style="width: 100%">
             <div class="card-header">
@@ -111,7 +112,7 @@
                 </table>
             </div>
         </div>
-    </div>
+    </ul>
 </div>
 </body>
 </html>

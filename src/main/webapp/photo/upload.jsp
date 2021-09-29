@@ -5,7 +5,7 @@
   Time: 17:38
   To change this template use File | Settings | File Templates.
 --%>
-%@ page language="java" pageEncoding="UTF-8" session="true" %>
+<%@ page language="java" pageEncoding="UTF-8" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">

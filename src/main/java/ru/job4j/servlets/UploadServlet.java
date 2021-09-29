@@ -31,7 +31,7 @@ public class UploadServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
         req.setAttribute("candidates", PsqlStore.instOf().findAllCandidates());
-        req.getRequestDispatcher("candidates.jsp").forward(req, resp);
+        req.getRequestDispatcher("candidate/candidates.jsp").forward(req, resp);
     }
 
  /*   @Override
@@ -54,7 +54,7 @@ public class UploadServlet extends HttpServlet {
         ServletFileUpload upload = new ServletFileUpload(factory);
         try {
             List<FileItem> items = upload.parseRequest(req);
-            File folder = new File("C:\\images");
+            File folder = new File("C:\\images\\");
             if (!folder.exists()) {
                 folder.mkdir();
             }

@@ -42,7 +42,8 @@
     </table>
     <h2>Download image</h2> <!-- В браузере она отобразится, как кнопка с выбором файла.
 Давайте сделаем форму с вводом файла. -->
-    <form action="<c:url value='/upload'/>" method="post" enctype="multipart/form-data">
+    <form action="<%=request.getContextPath()%>/photo?id=<%=request.getParameter("id")%>"
+          method="post" enctype="multipart/form-data">
         <div class="checkbox">
             <input type="file" name="file"> <!-- В html есть форма загрузки файла. <input type="file" name="file"> -->
         </div>

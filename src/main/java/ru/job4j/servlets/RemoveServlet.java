@@ -16,7 +16,7 @@ public class RemoveServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("candidates", PsqlStore.instOf().findAllCandidates());
-        request.getRequestDispatcher("candidates.jsp").forward(request, response);
+        request.getRequestDispatcher("candidate/candidates.jsp").forward(request, response);
     }
 
     @Override

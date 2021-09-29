@@ -35,8 +35,8 @@ import java.io.IOException;
 public class CandidateServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("posts", PsqlStore.instOf().findAllCandidates());
-        req.getRequestDispatcher("candidates.jsp").forward(req, resp);
+        req.setAttribute("candidates", PsqlStore.instOf().findAllCandidates());
+        req.getRequestDispatcher("candidate/candidates.jsp").forward(req, resp);
     }
 
     @Override
