@@ -1,5 +1,4 @@
 [![Build Status](https://app.travis-ci.com/SlartiBartFast-art/job4j_dreamjob.svg?branch=main)](https://app.travis-ci.com/SlartiBartFast-art/job4j_dreamjob)
-[![codecov](https://codecov.io/gh/SlartiBartFast-art/job4j_dreamjob/branch/main/graph/badge.svg?token=EPMDH3ZT0M)](https://codecov.io/gh/SlartiBartFast-art/job4j_dreamjob)
 
 # job4j_dreamjob
 
