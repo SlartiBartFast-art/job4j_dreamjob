@@ -20,8 +20,10 @@ import java.io.IOException;
  * admin.setEmail(email);
  * sc.setAttribute("user", admin);
  * Нужно это переделать на Store.instOf().findByEmail().
+ * Если регистрация прошла успешно, то переходим на страницу логин
+ * req.getRequestDispatcher("register/reg.jsp").forward(req, resp);
  * @author SlartiBartFast-art
- * @version 02
+ * @version 03
  * @since 28.09.21
  */
 public class RegServlet extends HttpServlet {
@@ -38,6 +40,6 @@ public class RegServlet extends HttpServlet {
         } else {
             req.setAttribute("error", "Пользователь с таким email уже существует");
         }
-        req.getRequestDispatcher("register/reg.jsp").forward(req, resp);
+        req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
 }

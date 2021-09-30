@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="ru.job4j.dream.model.User" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -75,7 +77,7 @@
             <c:if test="${user == null}">
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="<%=request.getContextPath()%>/login/login.jsp">Войти</a>
+                       href="<%=request.getContextPath()%>/login.jsp">Войти</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
