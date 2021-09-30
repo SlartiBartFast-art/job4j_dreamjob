@@ -8,34 +8,75 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script>
+        function validate() {
+        var x = Boolean(true);
+            if ($('#validationCustom01').val() === "") {
+                alert($('#firstName').attr('title'));
+                x = false;
+            }
+            if ($('#validationCustom02').val() === '') {
+                alert($('#lastName').attr('title'));
+                x = false;
+            }
+            if ($('#validationCustom03').val() === 'Select') {
+                alert($('#sex').attr('title'));
+                x = false;
+            }
+            if ($('#validationCustom04').val() === '') {
+                alert($('#description').attr('title'));
+                x = false;
+            }
+            return x;
+        }
+    </script>
 </head>
 <body>
+<!--<div class="container">
+    <h2>Form control: input</h2>
+    <p>The form below contains two input elements; one of type text and one of type password:</p>
+    <form>
+        <div class="form-group">
+            <label for="usr">Name:</label>
+            <input type="text" class="form-control" title="Enter user name." id="usr">
+        </div>
+        <div class="form-group">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" id="pwd">
+        </div>
+        <button type="button" class="btn btn-default" onclick="return validate();">Submit</button>
+    </form>
+</div>-->
+
 <div class="container-fluid">
     <h1>My First Bootstrap Page</h1>
     <p>This is some text.</p>
-    <form>
-        <div class="form-auto">
+    <form class="needs-validation" novalidate>
+        <div class="form-row">
             <div class="col-md-6 mb-3">
                 <label for="validationCustom01">First name</label>
-                <input type="text" class="form-control" id="validationCustom01" required>
+                <input type="text" class="form-control" title="Enter First name." id="validationCustom01" placeholder="Pleas enter First name" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="validationCustom02">Last name</label>
-                <input type="text" class="form-control" id="validationCustom02" required>
+                <input type="text" class="form-control" id="validationCustom02" placeholder="Pleas enter Last name" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="validationCustom03">Gender</label>
-                <input type="text" class="form-control" id="validationCustom03" required>
+                <input type="text" class="form-control" id="validationCustom03"  placeholder="Pleas enter yours gender" required>
             </div>
             <div class="col-md-6 mb-3">
                 <label for="validationCustom04">Description</label>
-                <input type="text" class="form-control" id="validationCustom04" required>
+                <input type="text" class="form-control" id="validationCustom04"  placeholder="Pleas enter Description" required>
             </div>
         </div>
+        <button type="button" class="btn btn-primary" onclick="return validate();">Submit</button>
     </form>
     <!-- Под формой добавте таблицу используя описание из задания-->
-    <table class="table">
-        <thead>
+    <table class="table table-striped">
+        <!-- инвертирование цвета /темный фон+ светл буквы table-dark.
+         Полосатые ряды table table-striped -->
+        <thead class="thead-dark"> <!-- темный токлько загололвок таблицы-->
         <tr>
             <th scope="col">#</th>
             <th scope="col">First name</th>
