@@ -83,9 +83,8 @@ public class PsqlStore implements Store {
                     posts.add(new Post(it.getInt("id"), it.getString("name")));
                 }
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("findAllPosts() ERROR. Unable to SQL query", e);
         }
         return posts;
     }
@@ -106,9 +105,8 @@ public class PsqlStore implements Store {
                     candidates.add(new Candidate(it.getInt("id"), it.getString("name")));
                 }
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("findAllCandidates() ERROR. Unable to SQL query", e);
         }
         return candidates;
     }
@@ -151,9 +149,8 @@ public class PsqlStore implements Store {
         ) {
             ps.setInt(2, id);
             ps.execute();
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("remove(int id) ERROR. Unable to SQL query", e);
         }
     }
 
@@ -181,9 +178,8 @@ public class PsqlStore implements Store {
                     user.setId(id.getInt(1));
                 }
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("createUser(User user) ERROR. Unable to SQL query", e);
         }
         return user;
     }
@@ -198,9 +194,8 @@ public class PsqlStore implements Store {
             ps.setString(3, user.getName());
             ps.setInt(4, user.getId());
             ps.execute();
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("updateUser(User user) ERROR. Unable to SQL query", e);
         }
     }
 
@@ -218,9 +213,8 @@ public class PsqlStore implements Store {
                         it.getString("email"), it.getString("password")
                 );
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("findByEmail(String email) ERROR. Unable to SQL query", e);
         }
         return user;
     }
@@ -243,9 +237,8 @@ public class PsqlStore implements Store {
                     post.setId(id.getInt(1));
                 }
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("create(Post post) ERROR. Unable to SQL query", e);
         }
         return post;
     }
@@ -268,9 +261,8 @@ public class PsqlStore implements Store {
                     candidate.setId(id.getInt(1));
                 }
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("createCandidate(Candidate candidate) ERROR. Unable to SQL query", e);
         }
         return candidate;
     }
@@ -288,9 +280,8 @@ public class PsqlStore implements Store {
             ps.setString(1, post.getName());
             ps.setInt(2, post.getId());
             ps.execute();
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("update(Post post) ERROR. Unable to SQL query", e);
         }
     }
 
@@ -307,9 +298,8 @@ public class PsqlStore implements Store {
             ps.setString(1, candidate.getName());
             ps.setInt(2, candidate.getId());
             ps.execute();
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("updateCandidate(Candidate candidate) ERROR. Unable to SQL query", e);
         }
     }
 
@@ -334,9 +324,8 @@ public class PsqlStore implements Store {
                 post = new Post(id, it.getString("name"));
 
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("findById(int id) ERROR. Unable to SQL query", e);
         }
         return post;
     }
@@ -361,9 +350,8 @@ public class PsqlStore implements Store {
             try (ResultSet it = ps.executeQuery()) {
                 candidate = new Candidate(id, it.getString("name"));
             }
-        } catch (SQLException | Error e) {
-            LOGGER.error("ERROR", e);
-            LOGGER.fatal("Unable to SQL query.", e);
+        } catch (SQLException e) {
+            LOGGER.error("findByIdCandidate(int id) ERROR. Unable to SQL query", e);
         }
         return candidate;
     }
