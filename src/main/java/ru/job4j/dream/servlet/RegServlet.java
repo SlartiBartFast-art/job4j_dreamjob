@@ -23,10 +23,18 @@ import java.io.IOException;
  * Если регистрация прошла успешно, то переходим на страницу логин
  * req.getRequestDispatcher("register/reg.jsp").forward(req, resp);
  * @author SlartiBartFast-art
- * @version 03
+ * @version 04
  * @since 28.09.21
  */
 public class RegServlet extends HttpServlet {
+    /**
+     * если регистрация удачная то идем логинимся,
+     * если неудачная - возвращаемся на страницу регистрации.
+     * @param req
+     * @param resp
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
@@ -39,6 +47,7 @@ public class RegServlet extends HttpServlet {
             req.setAttribute("error", "Регистрация завершена");
         } else {
             req.setAttribute("error", "Пользователь с таким email уже существует");
+            req.getRequestDispatcher("/register/reg.jsp").forward(req, resp);
         }
         req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
