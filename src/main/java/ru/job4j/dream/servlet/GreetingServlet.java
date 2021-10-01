@@ -53,10 +53,10 @@ public class GreetingServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, IOException {
-        resp.setContentType("application/json; charset=utf-8");
-        resp.setCharacterEncoding("UTF-8");
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
         resp.setHeader("Access-Control-Allow-Origin", "*");
+        resp.setContentType("application/json; charset=utf-8");
         OutputStream output = resp.getOutputStream();
         String json = GSON.toJson(emails);
         output.write(json.getBytes(StandardCharsets.UTF_8));

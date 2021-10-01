@@ -30,45 +30,24 @@
         $.ajax({
             type: 'GET',
             url: 'http://localhost:8080/job4j_dreamjob_war_exploded/greet',
-      data: JSON.stringify({
-                name: $('#email').val()
-            }),
-            dataType: 'json'
-        }).done(function (data) {
-            $('#emailList li:last').append(`<li>${data.name}</li>`)
-        }).fail(function (err) {
-            console.log(err);
+            data: 'name=' + $('#email').val(),
+            dataType: 'text'
+        }).done(function(data) {
+            $(".form-group").before($('#email').val());
+        }).fail(function(err){
+            alert(err);
         });
     }
-    $(document).ready(function () {
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:8080/dreamjob/greet',
-            dataType: 'json'
-        }).done(function (data) {
-            for (var email of data) {
-                $('#emailList li:last').append(`<li>${email.name}</li>`)
-            }
-        }).fail(function (err) {
-            console.log(err);
-        });
-    });
 </script>
 <body>
 <div class="container">
     <form>
         <div class="form-group">
             <label for="email" style="font-weight: bold">Email address</label>
-            <input type="text" class="form-control" id="email"
-                   aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="text" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
         </div>
         <button type="button" class="btn btn-primary" onclick="sendGreeting()">Submit</button>
     </form>
-    <br>
-    Почты:
-    <ul id="emailList">
-        <li></li>
-    </ul>
 </div>
 </body>
 </html>
