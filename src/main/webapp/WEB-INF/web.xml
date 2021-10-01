@@ -45,6 +45,10 @@
         <filter-name>AuthFilter</filter-name>
         <filter-class>ru.job4j.dream.filter.AuthFilter</filter-class>
     </filter>
+    <servlet>
+    <servlet-name>GreetingServlet</servlet-name><!-- сервлет, который будет отрабатывать запросы.-->
+        <servlet-class>ru.job4j.dream.servlet.GreetingServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PostServlet</servlet-name>
         <url-pattern>/posts.do</url-pattern>
@@ -89,4 +93,8 @@
         <filter-name>AuthFilter</filter-name>
         <url-pattern>*.do</url-pattern>
     </filter-mapping>
+    <servlet-mapping><!-- сервлет, который будет отрабатывать запросы.-->
+        <servlet-name>GreetingServlet</servlet-name>
+        <url-pattern>/greet</url-pattern>
+    </servlet-mapping>
 </web-app>
