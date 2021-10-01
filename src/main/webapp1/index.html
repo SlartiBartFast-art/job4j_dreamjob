@@ -1,4 +1,17 @@
-<!-- 1. index.html + bootstrap, form, table [#58522] -->
+<!-- 1. index.html + bootstrap, form, table [#58522]
+ <table class="table table-striped">
+     инвертирование цвета /темный фон+ светл буквы table-dark.
+     Полосатые ряды table table-striped
+<thead class="thead-dark" id="table">  темный только загололвок таблицы
+function addRow() {
+    //получаем значение поля usr
+    const name = $('#usr').val();
+
+    //получаем ссылку на последний элемент в таблице.
+    //и после него добавляем html
+    $('#table tr:last').after('<tr><td>' + name +'</td></tr>');
+}
+ -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,24 +42,20 @@
             }
             return x;
         }
-        function addRow() {
-    //получаем значение поля usr
-  //  const name = $('#usr').val();
-    const firstName = $('#validationCustom01').val();
-    const lastName = $('#validationCustom02').val();
-    const sex = $('#validationCustom03').val();
-    const description = $('#validationCustom04').val();
-    //получаем ссылку на последний элемент в таблице.
-    //и после него добавляем html
-    $('#table tr:last').after('<tr>
-  //  <td>' + name +'</td></tr>'
-    '<td>' + validationCustom01 + '</td>' +
-    '<td>' + validationCustom02 + '</td>' +
-    '<td>' + validationCustom03 + '</td>' +
-    '<td>' + validationCustom04 + '</td>
-    </tr>'
-    );
-}
+    function addRow() {
+      if (validate()) {
+       const firstName = $('#validationCustom01').val();
+        const lastName = $('#validationCustom02').val();
+        const sex = $('#validationCustom03').val();
+        const description = $('#validationCustom04').val();
+        $('#table tr:last').after(
+        '<tr>'<td>' + validationCustom01 + '</td>' +
+        '<td>' + validationCustom02 + '</td>' +
+        '<td>' + validationCustom03 + '</td>' +
+        '<td>' + validationCustom04 + '</td></tr>'
+        );
+      }
+    }
     </script>
 </head>
 <body>
@@ -94,16 +103,13 @@
         </div>
         <div class="row">
             <div class="button">
-        <button type="button" class="btn btn-primary" onclick="addRow()">Add row</button>
+                <button type="button" class="btn btn-primary" onclick="addRow()">Add row</button>
             </div>
         </div>
     </form>
-    <!-- Под формой добавте таблицу используя описание из задания-->
 </div>
 <table class="table table-striped">
-    <!-- инвертирование цвета /темный фон+ светл буквы table-dark.
-     Полосатые ряды table table-striped -->
-    <thead class="thead-dark" id="table"> <!-- темный только загололвок таблицы-->
+    <thead class="thead-dark" id="table">
     <tr>
         <th scope="col">#</th>
         <th scope="col">First name</th>
