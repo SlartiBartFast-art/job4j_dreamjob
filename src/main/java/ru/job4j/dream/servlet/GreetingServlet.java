@@ -33,6 +33,11 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * получим рабочую форму обработки запроса, где
  * greet - имя сервлета в web.xml
  * ?name=Petr - параметры запроса.
+ * 4.1. JSON формат. [#238554]
+ * Уровень : 3. МидлКатегория : 3.2. Servlet JSPТопик : 3.2.8. JS, JQuery, Ajax
+ * При обработке POST запроса производится десериализация модели. Далее объект сохраняется в список.
+ *
+ * При обработке GET запроса происходит сериализация списка добавленных почтовых адресов.
  */
 public class GreetingServlet extends HttpServlet {
     private final static Gson GSON = new GsonBuilder().create();
