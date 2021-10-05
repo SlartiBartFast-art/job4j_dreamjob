@@ -22,6 +22,7 @@ import java.io.IOException;
  * Нужно это переделать на Store.instOf().findByEmail().
  * Если регистрация прошла успешно, то переходим на страницу логин
  * req.getRequestDispatcher("register/reg.jsp").forward(req, resp);
+ *
  * @author SlartiBartFast-art
  * @version 04
  * @since 28.09.21
@@ -30,6 +31,7 @@ public class RegServlet extends HttpServlet {
     /**
      * если регистрация удачная то идем логинимся,
      * если неудачная - возвращаемся на страницу регистрации.
+     *
      * @param req
      * @param resp
      * @throws ServletException
@@ -45,10 +47,10 @@ public class RegServlet extends HttpServlet {
             user.setPassword(req.getParameter("password"));
             PsqlStore.instOf().save(user);
             req.setAttribute("error", "Регистрация завершена");
+            req.getRequestDispatcher("/login.jsp").forward(req, resp);
         } else {
             req.setAttribute("error", "Пользователь с таким email уже существует");
             req.getRequestDispatcher("/register/reg.jsp").forward(req, resp);
         }
-        req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
 }
